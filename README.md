@@ -1,4 +1,34 @@
 
+## Zadanie passwordit
+
+
+
+## Start
+
+1. ### Configuration DB
+
+localhost 3306 
+root:root
+
+2. ### Install packages
+
+```bash
+composer install
+```
+3. ### Run
+
+```bash
+php yii migrate
+php yii serve
+```
+
+#### Url
+Main page: http://localhost:8080
+
+CRUD: http://localhost:8080/index.php?r=news%2Findex
+
+
+### Helpers
 
 domain passedit.pl
 
