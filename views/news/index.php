@@ -4,7 +4,9 @@ use app\models\News;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
-use yii\grid\GridView;
+
+use kartik\form\ActiveForm;
+use kartik\builder\TabularForm;
 
 /** @var yii\web\View $this */
 /** @var app\models\NewsSearch $searchModel */
@@ -23,23 +25,45 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-            'id',
-            'title',
-            'content:ntext',
-            'date_add:datetime',
-            [
-                'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, News $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'id' => $model->id]);
-                 }
+    <?php    
+    $form = ActiveForm::begin([
+        'id' => 'form-signup',
+        'type' => ActiveForm::TYPE_HORIZONTAL
+    ]);
+
+    echo TabularForm::widget([
+        'dataProvider'=>$dataProvider,
+        'form'=> $form,
+        'attributes'=> [
+            // primary key column
+            'id' => [ // primary key attribute
+                'type' => TabularForm::INPUT_HIDDEN, 
+                'columnOptions' => ['hidden'=>true]
+            ],
+            'title'=>['type' => TabularForm::INPUT_TEXT],
+            'content'=>['type' => TabularForm::INPUT_TEXT],
+            'date_add'=>[
+                'type' => TabularForm::INPUT_STATIC,
+                'format' => 'datetime'
             ],
         ],
-    ]); ?>
+        'actionColumn' => [
+            'class' => ActionColumn::className(),
+            'urlCreator' => function ($action, News $model, $key, $index, $column) {
+                return Url::toRoute([$action, 'id' => $model->id]);
+                }
+        ],
+        'gridSettings'=>[
+            'condensed' => true
+        ]
+    ]);
+    // Add other fields if needed or render your submit button
+    echo '<div class="text-right text-end">' . 
+        Html::submitButton('Update', ['class'=>'btn btn-primary']) .
+        '<div>';
+    ActiveForm::end();
+    
+    ?>
 
 
 </div>

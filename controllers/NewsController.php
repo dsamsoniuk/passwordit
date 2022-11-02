@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\News;
 use app\models\NewsSearch;
+use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -38,7 +39,21 @@ class NewsController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new NewsSearch();
+        $searchModel    = new NewsSearch();
+        $dataProvider   = $searchModel->search(Yii::$app->request->getQueryParams());
+        $models         = $dataProvider->getModels();
+
+        if (News::loadMultiple($models, Yii::$app->request->post()) && News::validateMultiple($models)) {
+            $count = 0;
+            foreach ($models as $index => $model) {
+                if ($model->save()) {
+                    $count++;
+                }
+            }
+            Yii::$app->session->setFlash('success', "Processed {$count} records successfully.");
+            return $this->redirect(['index']); // redirect to your next desired page
+        }
+
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
@@ -71,6 +86,7 @@ class NewsController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
+                Yii::$app->session->setFlash('success', "Added new news");
                 return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
