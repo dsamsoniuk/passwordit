@@ -30,6 +30,8 @@ class News extends \yii\db\ActiveRecord
             [['title'], 'required'],
             [['content'], 'string'],
             [['title'], 'string', 'max' => 255],
+            [['date_add'], 'integer', 'min' => 0],
+            [['date_add'], 'default', 'value' => time()],
         ];
     }
 
@@ -42,6 +44,7 @@ class News extends \yii\db\ActiveRecord
             'id' => 'ID',
             'title' => 'Title',
             'content' => 'Content',
+            'date_add' => 'Date add',
         ];
     }
 }

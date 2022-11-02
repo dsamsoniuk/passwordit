@@ -36,10 +36,6 @@ class m221101_180403_news extends Migration
             'content' => Schema::TYPE_TEXT,
         ]);
 
-        $this->insert('news', [
-            'title' => 'test 1',
-            'content' => 'content 1',
-        ]);
     }
 
     public function down()
