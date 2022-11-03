@@ -33,6 +33,7 @@ CRUD: http://localhost:8080/index.php?r=news%2Findex
 ```bash
 docker-compose up
 # in container php
+composer install
 php yii migrate
 ```
 

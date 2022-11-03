@@ -12,7 +12,14 @@ RUN docker-php-ext-install mysqli pdo pdo_mysql && docker-php-ext-enable pdo_mys
 # RUN add-apt-repository ppa:ondrej/php
 RUN  apt update && apt-get install -y \
     git \
-    curl 
+    curl \
+    zip \
+    unzip
+
+# Install composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+RUN composer self-update 1.10.10
+
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
