@@ -2,11 +2,11 @@
 
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=localhost;dbname=yii2basic',
-    'username' => 'root',
-    'password' => 'root',
+    'dsn' => 'mysql:host=mysqldb;dbname=yii',
+    'username' => 'yii',
+    'password' => 'yii',
     'charset' => 'utf8',
-
+    // mysql -h localhost -P 8989 --protocol=tcp -u nazwapl -p
     // Schema cache options (for production environment)
     //'enableSchemaCache' => true,
     //'schemaCacheDuration' => 60,

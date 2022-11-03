@@ -28,6 +28,14 @@ Main page: http://localhost:8080
 CRUD: http://localhost:8080/index.php?r=news%2Findex
 
 
+### Run docker
+
+```bash
+docker-compose up
+# in container php
+php yii migrate
+```
+
 ### Helpers
 
 domain passedit.pl
