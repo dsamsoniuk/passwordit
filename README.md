@@ -8,7 +8,10 @@
 1. ### Configuration DB
 
 localhost 3306 
+
 root:root
+
+db: yii2basic
 
 2. ### Install packages
 
